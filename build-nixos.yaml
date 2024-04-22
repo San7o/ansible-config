@@ -4,3 +4,4 @@
   tasks:
   - name: system build
     ansible.builtin.command: nixos-rebuild test --flake /home/lanto/.config/nixos/flake.nix#lanto@hp --impure
+    when: ansible_distribution == "NixOS"

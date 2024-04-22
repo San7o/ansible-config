@@ -20,6 +20,11 @@ ansible myhosts -m ping -i inventory.ini -k
 - You need `sshpass` installed if you have an ssh connection with password
 
 
+# Run a module
+```bash
+ansible -i inventory.ini all -m ansible.builtin.setup
+```
+
 # Create a playbook
 
 a playbook is a list of plys that define the order in which Ansible performs operations, from top to bottom. A play is a list of tasks on a certain node, a task is a reference to a single module that defines some operations.
@@ -54,4 +59,14 @@ Become let's you use sudo user, look at this example
 ```
 ```bash
 ansible-playbook -i inventory.ini build-nixos.yaml --ask-become-pass
+```
+
+# When
+The when keyword let's you run tasks conditionally
+```yaml
+- name: install apache2 package
+  apt:
+    name: apache2
+    state: latest
+  when: ansible_distribution == "CentOS"
 ```
