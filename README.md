@@ -40,3 +40,18 @@ a playbook is a list of plys that define the order in which Ansible performs ope
 ```bash
 ansible-playbook -i inventory.ini playbook.yaml -k
 ```
+
+# Use become
+Become let's you use sudo user, look at this example
+
+```yaml
+- name: NixOS manager
+  hosts: pc
+  become: true
+  tasks:
+  - name: system build
+    ansible.builtin.command: nixos-rebuild test --flake /home/lanto/.config/nixos/flake.nix#lanto@hp --impure
+```
+```bash
+ansible-playbook -i inventory.ini build-nixos.yaml --ask-become-pass
+```
